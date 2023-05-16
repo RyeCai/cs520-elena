@@ -1,9 +1,8 @@
-import { makeStyles } from "@mui/styles";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./App.css";
-import RoundedContainer from "./components/RoundedContainer.jsx";
+import InputContainer from "./components/InputContainer.jsx"
 
 const center = [42.3906, -72.5283];
 const zoom = 16;
@@ -16,21 +15,12 @@ function Map() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
-  parentContainer: {
-    position: "relative",
-    height: "100vh",
-  },
-}));
-
 function App() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.parentContainer}>
+    <>
+      <InputContainer />
       <Map />
-      <RoundedContainer />
-    </div>
+    </>
   );
 }
 
