@@ -1,70 +1,83 @@
 import { useState, useEffect } from "react";
-import './App.css'
-import L from  '../node_modules/leaflet/dist/leaflet.js'   // // Creating map options
-
+import "./App.css";
+import L from "../node_modules/leaflet/dist/leaflet.js"; // // Creating map options
 function App() {
-    const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
-    const [mapResult, setmapResult] = useState();
-    const [searchText, setSearchText] = useState("England");
-      
-useEffect(() => {
+  const [mapResult, setmapResult] = useState();
+  const [searchBox, setSearchText] = useState({
+    minLon: 42.3644,
+    minLat: -72.5531,
+    maxLon: 42.373,
+    maxLat: -72.536,
+  });
+  const [tempText, setTempText] = useState();
+  const layer = new L.TileLayer(
+    "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  );
+  useEffect(() => {
     async function getMaps() {
-    const params = {
-                q: searchText,
-                format: "json",
-                addressdetails: 1,
-                polygon_geojson: 0,
-              };
-     const queryString = new URLSearchParams(params).toString();
-              const requestOptions = {
-                method: "GET",
-                redirect: "follow",
-              };
-              fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
-                .then((response) => response.text())
-                .then((result) => {
-                  setmapResult(JSON.parse(result)[0].boundingbox);
-                  if(map != undefined){ 
-                    map.remove();
-                    }
-                })
-                .catch((err) => console.log("err: ", err));
-              }
-              getMaps();
-          return;
-  }, []);
+      console.log("mapping");
+      const endpoint = "https://www.openstreetmap.org/api/0.6/map";
+      const bbox = searchBox;
 
-  console.log(mapResult)
-  let mapCenter = [17.385044, 78.486671];
-  if(mapResult != undefined){
-    let m1 = parseFloat(mapResult[0]) + parseFloat(mapResult[1])
-    let m2 = parseFloat(mapResult[2]) + parseFloat(mapResult[3])
-    mapCenter[1] = m2 / 2
-    mapCenter[0] = m1 / 2
-  }
-  var mapOptions = {
-      center: mapCenter,
-      zoom: 10
-    }
-    // // Creating a map object
-    
-    if(map != undefined){
-      map.remove();
-    }
-    
-    var map = new L.map('map', mapOptions);
-    // // Creating a Layer object
-    var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-    // // Adding layer to the map
-    map.addLayer(layer);
-    
-const [MinMax, setMinMax] = useState("Minimize")
+      // Build the API URL
+      const apiUrl = `${endpoint}?bbox=${bbox.minLon},${bbox.minLat},${bbox.maxLon},${bbox.maxLat}`;
 
-const onOptionChange = e => {
+      // Make the API call using fetch
+      await fetch(apiUrl)
+        .then((response) => response.text())
+        .then((data) => {
+          // Process the response data
+          setmapResult(data);
+          // console.log(data);
+          // Do something with the data
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    getMaps();
+    return;
+  }, [searchBox]);
+  console.log(mapResult);
+    useEffect(() => {
+      async function renderMap() {
+        console.log("rendering");
+        let mapCenter = [17.385044, 78.486671];
+        if (mapResult != undefined) {
+          let m1 = parseFloat(mapResult[0]) + parseFloat(mapResult[1]);
+          let m2 = parseFloat(mapResult[2]) + parseFloat(mapResult[3]);
+          mapCenter[1] = m2 / 2;
+          mapCenter[0] = m1 / 2;
+          mapCenter = [17.385044, 78.486671];
+        }
+        var mapOptions = {
+          center: mapCenter,
+          zoom: 10,
+        };
+        // // Creating a map object
+        var map = (new L.map("map", mapOptions));
+        // // Creating a Layer object
+        // // Adding layer to the map
+        map.addLayer(layer);
+      }
+      renderMap();
+      return;
+    }, []);
+
+
+  const [MinMax, setMinMax] = useState("Minimize");
+
+  const onOptionChange = (e) => {
     setMinMax(e.target.value);
-    map.remove();
-  }
+  };
+  const handleSearch = (e) => {
+    setTempText(e.target.value);
+  };
 
+  const startSearch = (e) => {
+    e
+    setSearchText(tempText);
+  };
 
   return (
     <>
@@ -90,8 +103,11 @@ const onOptionChange = e => {
       <p>
         Currently: <strong>{MinMax}</strong>
       </p>
+      <input name="myInput" onChange={handleSearch} />
+      <button name="search" title="Search" onClick={startSearch}></button>
+      <br></br>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
