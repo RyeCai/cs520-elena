@@ -105,31 +105,7 @@ function App() {
     getWays();
   }
 
-  useEffect(() => {
-    async function renderMap() {
-      console.log("rendering");
-      let mapCenter = [17.385044, 78.486671];
-      if (mapResult != undefined) {
-        let m1 = parseFloat(mapResult[0]) + parseFloat(mapResult[1]);
-        let m2 = parseFloat(mapResult[2]) + parseFloat(mapResult[3]);
-        mapCenter[1] = m2 / 2;
-        mapCenter[0] = m1 / 2;
-        mapCenter = [17.385044, 78.486671];
-      }
-      var mapOptions = {
-        center: mapCenter,
-        zoom: 10,
-      };
-      // // Creating a map object
-      var map = new L.map("map", mapOptions);
-      // // Creating a Layer object
-      // // Adding layer to the map
-      map.addLayer(layer);
-    }
-    renderMap();
-    return;
-  }, []);
-
+  
   const [MinMax, setMinMax] = useState("Minimize");
 
   const onOptionChange = (e) => {
