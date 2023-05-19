@@ -21,39 +21,29 @@ function HelpModal() {
             width: "50%",
           }}
         >
-          <Paper style={{ padding: "10px" }}>
-            <Typography variant="h5" gutterBottom>
-              ⛰️ EleNa{" "}
+          <Paper display="flex" style={{ padding: "10px", marginBottom: "5px" }}>
+            <Typography variant="h5">⛰️ EleNa</Typography>
+            <Typography variant="h6">About</Typography>
+            <Typography variant="body1" paragraph>
+              This web application calculates geographical routes that maximizes or minimizes elevation gain. Users may
+              enter a destination address, a selection to either maximize or minimize elevation, and an allowed extra
+              distance as a percentage of the shortest route. The application will then calculate and display a
+              resulting path.
             </Typography>
-            <Typography variant="h6" gutterBottom>
-              About
+            <Typography variant="h6">Usage</Typography>
+            <Typography variant="body1" paragraph>
+              Using the text field, search for your destination using an address or location name. Avoid using long form
+              mailing addresses. The building number, street name, and town should be good enough. Example: &quot;6 Main
+              Street Amherst&quot;. After pressing &quot;SEARCH&quot;, a marker will show on the map to display your
+              current location and resolved destination.
             </Typography>
-            <Typography variant="body1">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. In non labore dicta repellat veritatis dolores
-              similique laudantium, soluta deleniti, alias cupiditate saepe assumenda quae ipsa dolorum quisquam fugit
-              officia ea. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo exercitationem cumque, voluptates
-              nihil perspiciatis aliquam ullam. Iure minus, enim nisi cum quis veniam vero beatae vitae non sed repellat
-              maxime!
+            <Typography variant="body1" paragraph>
+              After selecting a destination, you can configure your route preferences. First, select whether your route
+              should maximize or minimize total elevation gain. Then configure how much additional distance the
+              elevation-sensitive route may have. This is represented as a percentage of the shortest possible route.
             </Typography>
-            <Typography variant="h6" gutterBottom>
-              Usage
-            </Typography>
-            <Typography variant="body1">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. In non labore dicta repellat veritatis dolores
-              similique laudantium, soluta deleniti, alias cupiditate saepe assumenda quae ipsa dolorum quisquam fugit
-              officia ea. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo exercitationem cumque, voluptates
-              nihil perspiciatis aliquam ullam. Iure minus, enim nisi cum quis veniam vero beatae vitae non sed repellat
-              maxime!
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Meet the Team!
-            </Typography>
-            <Typography variant="body1">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. In non labore dicta repellat veritatis dolores
-              similique laudantium, soluta deleniti, alias cupiditate saepe assumenda quae ipsa dolorum quisquam fugit
-              officia ea. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo exercitationem cumque, voluptates
-              nihil perspiciatis aliquam ullam. Iure minus, enim nisi cum quis veniam vero beatae vitae non sed repellat
-              maxime!
+            <Typography variant="body1" paragraph>
+              Finally, press &quot;CALCULATE ROUTE&quot; to have your route calculated and displayed.
             </Typography>
             <Box display="flex" justifyContent="center">
               <IconButton
