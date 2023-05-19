@@ -6,8 +6,8 @@ function HelpModal() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
-      <Button onClick={() => setOpen(true)}>
+    <>
+      <Button fullWidth onClick={() => setOpen(true)}>
         <HelpOutlineIcon />
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -57,7 +57,7 @@ function HelpModal() {
           </Paper>
         </div>
       </Modal>
-    </div>
+    </>
   );
 }
 

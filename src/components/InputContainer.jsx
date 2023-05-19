@@ -1,32 +1,45 @@
-import { Paper } from "@mui/material";
-import Box from "@mui/material/Box";
+import { Grid, Paper } from "@mui/material";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
+import DistanceSelection from "./DistanceSeletion.jsx";
+import ElevationSelection from "./ElevationSelection.jsx";
+import HelpModal from "./HelpModal.jsx";
 
-function InputBox() {
+function InputGroup() {
   const [destination, setDestination] = useState("");
-  const [elevationOption, setElevationOption] = useState("maximize");
 
   const handleCalculateRoute = () => {
     // TODO
   };
 
   return (
-    <Box style={{ display: "flex", flexDirection: "column", padding: "20px", gap: "15px", zIndex: "inherit" }}>
-      <TextField label="Destination" value={destination} onChange={e => setDestination(e.target.value)} />
-
-      <Select value={elevationOption} onChange={e => setElevationOption(e.target.value)} label="Elevation Option">
-        <MenuItem value="maximize">Maximize Elevation</MenuItem>
-        <MenuItem value="minimize">Minimize Elevation</MenuItem>
-      </Select>
-
-      <Button variant="contained" onClick={handleCalculateRoute}>
-        Calculate Route
-      </Button>
-    </Box>
+    <Grid container spacing={2} justifyContent="space-around">
+      <Grid item xs={6}>
+        <TextField
+          sx={{ paddingBottom: "20px" }}
+          fullWidth
+          label="Destination"
+          value={destination}
+          onChange={e => setDestination(e.target.value)}
+        />
+        <Button fullWidth variant="contained" onClick={handleCalculateRoute}>
+          Search
+        </Button>
+      </Grid>
+      <Grid item xs={6}>
+        <ElevationSelection sx={{ paddingBottom: "10px " }} />
+        <DistanceSelection />
+      </Grid>
+      <Grid item xs={11}>
+        <Button fullWidth variant="contained" onClick={handleCalculateRoute}>
+          Calculate Route
+        </Button>
+      </Grid>
+      <Grid item xs={1} sx={{ justifyContent: "flex-end" }}>
+        <HelpModal />
+      </Grid>
+    </Grid>
   );
 }
 
@@ -41,9 +54,12 @@ function InputContainer() {
         position: "absolute",
         left: "50%",
         transform: "translate(-50%, 0%)",
+        display: "flex",
+        flexDirection: "column",
+        padding: "10px",
       }}
     >
-      <InputBox />
+      <InputGroup />
     </Paper>
   );
 }
