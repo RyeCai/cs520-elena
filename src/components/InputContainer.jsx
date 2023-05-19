@@ -2,12 +2,14 @@ import { Grid, Paper } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
-import DistanceSelection from "./DistanceSeletion.jsx";
 import ElevationSelection from "./ElevationSelection.jsx";
+import ExtraDistanceSelection from "./ExtraDistanceSeletion.jsx";
 import HelpModal from "./HelpModal.jsx";
 
 function InputGroup() {
   const [destination, setDestination] = useState("");
+  const [extraDistance, setExtraDistance] = useState(25);
+  const [elevationOption, setElevationOption] = useState("maximized");
 
   const handleCalculateRoute = () => {
     // TODO
@@ -28,8 +30,12 @@ function InputGroup() {
         </Button>
       </Grid>
       <Grid item xs={6}>
-        <ElevationSelection sx={{ paddingBottom: "10px " }} />
-        <DistanceSelection />
+        <ElevationSelection
+          sx={{ paddingBottom: "10px " }}
+          value={elevationOption}
+          onChange={e => setElevationOption(e.target.value)}
+        />
+        <ExtraDistanceSelection value={extraDistance} onChange={e => setExtraDistance(e.target.value)} />
       </Grid>
       <Grid item xs={11}>
         <Button fullWidth variant="contained" onClick={handleCalculateRoute}>
