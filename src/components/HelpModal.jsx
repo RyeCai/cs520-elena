@@ -1,5 +1,6 @@
+import GitHubIcon from "@mui/icons-material/GitHub";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import { Button, Modal, Paper, Typography } from "@mui/material";
+import { Box, Button, IconButton, Modal, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 function HelpModal() {
@@ -54,6 +55,16 @@ function HelpModal() {
               nihil perspiciatis aliquam ullam. Iure minus, enim nisi cum quis veniam vero beatae vitae non sed repellat
               maxime!
             </Typography>
+            <Box display="flex" justifyContent="center">
+              <IconButton
+                component="a"
+                href={"https://github.com/RyeCai/cs520-elena"}
+                rel="noopener noreferrer"
+                aria-label="GitHub Repository"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Box>
           </Paper>
         </div>
       </Modal>
