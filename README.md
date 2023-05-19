@@ -6,20 +6,32 @@ This web application calculates geographical routes that maximizes or minimizes 
 
 ---
 
-## How to run on your local machine
+## Dependencies
 
-In a terminal of your choice, `cd` into the `cs520-elena` directory and make sure corepack is enabled with:
+This project uses the [Node.js](https://nodejs.org/en/about) runtime environment. Check if `node` is installed by running:
 
-    corepack enable
+```
+node --version
+```
 
-(If you are using windows, make sure you run the terminal as administrator)
+If `node` is not installed, or you have an out of date version (something less than v16), please visit the ["Downloading and Installing" Node.js and npm page](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) on the npm website for installation instructions.
+
+Additonally, this project uses the [yarn](https://yarnpkg.com/) package manager. Please visit their [installation page](https://yarnpkg.com/getting-started/install) if you have not already installed yarn.
+
+## Running on a Local Machine
+
+In a terminal of your choice, navigate into the `cs520-elena` directory.
 
 Then, install all dependencies with:
 
-    yarn install
+```sh
+yarn install
+```
 
 After installing dependencies, run:
 
-    yarn dev
+```sh
+yarn dev
+```
 
 This will run the developer server, and open the web application in the browser with live updates to any changes in code.
