@@ -1,15 +1,18 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { InputContext } from "../App.jsx";
 
-function ElevationSelection({ sx, onChange, value }) {
+function ElevationSelection({ sx }) {
+  const { elevationOption, setElevationOption } = useContext(InputContext);
+
   return (
     <ToggleButtonGroup
       sx={{ ...sx }}
       fullWidth
       color="primary"
-      value={value}
+      value={elevationOption}
       exclusive
-      onChange={onChange}
+      onChange={e => setElevationOption(e.target.value)}
     >
       <ToggleButton sx={{ textTransform: "none" }} value="maximized">
         Maximize Elevation Gain

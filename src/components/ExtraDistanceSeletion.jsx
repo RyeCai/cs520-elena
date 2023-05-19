@@ -1,17 +1,20 @@
 import { Box, Slider, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { InputContext } from "../App.jsx";
 
 const marks = [5, 10, 25, 50].map(v => ({ value: v, label: `${v}%` }));
 
-function ExtraDistanceSelection({ onChange, value }) {
+function ExtraDistanceSelection() {
+  const { extraDistance, setExtraDistance } = useContext(InputContext);
+
   return (
     <>
       <Typography>Extra Allowed Distance:</Typography>
       <Box sx={{ paddingX: "10px" }}>
         <Slider
-          value={value}
+          value={extraDistance}
           step={1}
-          onChange={onChange}
+          onChange={e => setExtraDistance(e.target.value)}
           valueLabelDisplay="auto"
           min={5}
           max={50}
