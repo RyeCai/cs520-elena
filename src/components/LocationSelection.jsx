@@ -110,9 +110,9 @@ export default function LocationSelection({ name, color }) {
     if (results.length > 1) {
       setSearchResults(results);
     } else {
-      if (results.length === 1) setSelection(results[0]);
-
       setIsSearching(false);
+
+      if (results.length === 1) setSelection(results[0]);
     }
   }
 
@@ -152,7 +152,9 @@ export default function LocationSelection({ name, color }) {
           </Button>
         </Grid>
       </Grid>
-      {isSearching && <SearchResultsModal searchResults={searchResults} onSubmit={handleSearchSelection} />}
+      {isSearching && searchResults.length > 1 && (
+        <SearchResultsModal searchResults={searchResults} onSubmit={handleSearchSelection} />
+      )}
     </>
   );
 }
