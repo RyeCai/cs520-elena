@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 import "./App.css";
 import InputContainer from "./components/InputContainer.jsx";
 import Map from "./components/Map.jsx";
+import StatisticsContainer from "./components/StatisticsContainer.jsx";
 
 export const InputContext = createContext();
 
@@ -27,6 +28,7 @@ function App() {
     >
       <InputContainer />
       <Map />
+      <StatisticsContainer />
     </InputContext.Provider>
   );
 }
