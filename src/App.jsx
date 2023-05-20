@@ -7,13 +7,23 @@ import Map from "./components/Map.jsx";
 export const InputContext = createContext();
 
 function App() {
-  const [destination, setDestination] = useState("");
+  const [destination, setDestination] = useState(undefined);
+  const [userLocation, setUserLocation] = useState(undefined);
   const [extraDistance, setExtraDistance] = useState(25);
   const [elevationOption, setElevationOption] = useState("maximized");
 
   return (
     <InputContext.Provider
-      value={{ destination, setDestination, extraDistance, setExtraDistance, elevationOption, setElevationOption }}
+      value={{
+        destination,
+        setDestination,
+        userLocation,
+        setUserLocation,
+        extraDistance,
+        setExtraDistance,
+        elevationOption,
+        setElevationOption,
+      }}
     >
       <InputContainer />
       <Map />
