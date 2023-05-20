@@ -30,7 +30,7 @@ function MapController() {
   }, [setUserLocation, setOverlayContent]);
 
   useEffect(() => {
-    map.flyTo(userLocation ?? UMASS_LOCATION, DEFAULT_ZOOM);
+    if (userLocation) map.flyTo(userLocation, DEFAULT_ZOOM);
   }, [map, userLocation]);
 
   return null;
