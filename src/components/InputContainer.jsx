@@ -1,12 +1,15 @@
 import { Button, Grid, Paper } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 
+import { InputContext } from "../App.jsx";
 import DestinationField from "./DestinationField.jsx";
 import ElevationSelection from "./ElevationSelection.jsx";
 import ExtraDistanceSelection from "./ExtraDistanceSeletion.jsx";
 import HelpModal from "./HelpModal.jsx";
 
 function InputContainer() {
+  const { userLocation, destinationLocation } = useContext(InputContext);
+
   return (
     <Paper
       style={{
@@ -31,7 +34,11 @@ function InputContainer() {
           <ExtraDistanceSelection />
         </Grid>
         <Grid item xs={11}>
-          <Button fullWidth variant="contained">
+          <Button
+            fullWidth
+            variant="contained"
+            disabled={userLocation === undefined || destinationLocation === undefined}
+          >
             Calculate Route
           </Button>
         </Grid>
