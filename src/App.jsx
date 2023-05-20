@@ -1,9 +1,24 @@
+import { indigo, red } from "@mui/material/colors";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "leaflet/dist/leaflet.css";
 import React, { createContext, useState } from "react";
 import "./App.css";
 import InputContainer from "./components/InputContainer.jsx";
 import Map from "./components/Map.jsx";
 import StatisticsContainer from "./components/StatisticsContainer.jsx";
+
+const theme = createTheme({
+  palette: {
+    origin: {
+      main: indigo[500],
+      contrastText: "#fff",
+    },
+    destination: {
+      main: red[900],
+      contrastText: "#fff",
+    },
+  },
+});
 
 export const InputContext = createContext();
 
@@ -15,24 +30,26 @@ function App() {
   const [overlayContent, setOverlayContent] = useState(undefined);
 
   return (
-    <InputContext.Provider
-      value={{
-        startLocation,
-        setStartLocation,
-        endLocation,
-        setEndLocation,
-        extraDistance,
-        setExtraDistance,
-        elevationOption,
-        setElevationOption,
-        overlayContent,
-        setOverlayContent,
-      }}
-    >
-      <InputContainer />
-      <Map />
-      <StatisticsContainer />
-    </InputContext.Provider>
+    <ThemeProvider theme={theme}>
+      <InputContext.Provider
+        value={{
+          startLocation,
+          setStartLocation,
+          endLocation,
+          setEndLocation,
+          extraDistance,
+          setExtraDistance,
+          elevationOption,
+          setElevationOption,
+          overlayContent,
+          setOverlayContent,
+        }}
+      >
+        <InputContainer />
+        <Map />
+        <StatisticsContainer />
+      </InputContext.Provider>
+    </ThemeProvider>
   );
 }
 

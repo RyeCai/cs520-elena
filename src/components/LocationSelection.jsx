@@ -85,7 +85,7 @@ function SearchResultsModal({ searchResults, onSubmit }) {
   );
 }
 
-export default function LocationSelection({ name }) {
+export default function LocationSelection({ name, color }) {
   const [text, setText] = useState("");
   const [selection, setSelection] = useState(undefined);
 
@@ -142,12 +142,12 @@ export default function LocationSelection({ name }) {
       />
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <Button fullWidth variant="contained" disabled={disableSearch} onClick={() => handleSearch()}>
+          <Button fullWidth color={color} variant="contained" disabled={disableSearch} onClick={() => handleSearch()}>
             Search
           </Button>
         </Grid>
         <Grid item xs={4}>
-          <Button fullWidth variant="outlined" disabled={!selection} onClick={handleReset}>
+          <Button fullWidth color={color} variant="outlined" disabled={!selection} onClick={handleReset}>
             Reset
           </Button>
         </Grid>

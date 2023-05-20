@@ -25,10 +25,10 @@ function InputContainer() {
     >
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <LocationSelection name="Start" />
+          <LocationSelection name="Start" color="origin" />
         </Grid>
         <Grid item xs={6}>
-          <LocationSelection name="End" />
+          <LocationSelection name="End" color="destination" />
         </Grid>
         <Grid item xs={6}>
           <ElevationSelection />
@@ -42,7 +42,7 @@ function InputContainer() {
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button fullWidth variant="contained">
+          <Button fullWidth variant="outlined" color="error">
             Reset
           </Button>
         </Grid>
