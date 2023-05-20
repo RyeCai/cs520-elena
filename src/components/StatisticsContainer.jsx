@@ -3,16 +3,7 @@ import React, { useContext } from "react";
 import { InputContext } from "../App.jsx";
 
 export default function StatisticsContainer() {
-  const { userLocation } = useContext(InputContext);
-
-  let content;
-  if (userLocation === undefined) {
-    content = "Please enable location permissions to use this application";
-  }
-
-  if (!content) {
-    return <></>;
-  }
+  const { overlayContent } = useContext(InputContext);
 
   return (
     <Paper
@@ -31,7 +22,7 @@ export default function StatisticsContainer() {
       }}
     >
       <Box flex justifyContent="center" alignContent="center" textAlign="center">
-        <Typography>{content}</Typography>
+        <Typography>{overlayContent}</Typography>
       </Box>
     </Paper>
   );
