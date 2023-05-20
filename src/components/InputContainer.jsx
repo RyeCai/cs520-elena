@@ -2,13 +2,13 @@ import { Button, Grid, Paper } from "@mui/material";
 import React, { useContext } from "react";
 
 import { InputContext } from "../App.jsx";
-import DestinationField from "./DestinationField.jsx";
 import ElevationSelection from "./ElevationSelection.jsx";
 import ExtraDistanceSelection from "./ExtraDistanceSeletion.jsx";
 import HelpModal from "./HelpModal.jsx";
+import LocationSelection from "./LocationSelection.jsx";
 
 function InputContainer() {
-  const { userLocation, destinationLocation } = useContext(InputContext);
+  const { startLocation, endLocation } = useContext(InputContext);
 
   return (
     <Paper
@@ -19,30 +19,34 @@ function InputContainer() {
         zIndex: 1,
         position: "absolute",
         left: "50%",
-        transform: "translate(-50%, 0%)",
-        display: "flex",
-        flexDirection: "column",
+        transform: "translateX(-50%)",
         padding: "10px",
       }}
     >
-      <Grid container spacing={2} justifyContent="space-around">
+      <Grid container spacing={2}>
         <Grid item xs={6}>
-          <DestinationField />
+          <LocationSelection name="Start" />
         </Grid>
         <Grid item xs={6}>
-          <ElevationSelection sx={{ paddingBottom: "10px " }} />
+          <LocationSelection name="End" />
+        </Grid>
+        <Grid item xs={6}>
+          <ElevationSelection />
+        </Grid>
+        <Grid item xs={6}>
           <ExtraDistanceSelection />
         </Grid>
-        <Grid item xs={11}>
-          <Button
-            fullWidth
-            variant="contained"
-            disabled={userLocation === undefined || destinationLocation === undefined}
-          >
+        <Grid item xs={8}>
+          <Button fullWidth variant="contained" disabled={startLocation === undefined || endLocation === undefined}>
             Calculate Route
           </Button>
         </Grid>
-        <Grid item xs={1} sx={{ justifyContent: "flex-end" }}>
+        <Grid item xs={3}>
+          <Button fullWidth variant="contained">
+            Reset
+          </Button>
+        </Grid>
+        <Grid item xs={1}>
           <HelpModal />
         </Grid>
       </Grid>

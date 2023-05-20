@@ -8,7 +8,8 @@ import StatisticsContainer from "./components/StatisticsContainer.jsx";
 export const InputContext = createContext();
 
 function App() {
-  const [destinationLocation, setDestinationLocation] = useState(undefined);
+  const [startLocation, setStartLocation] = useState(undefined);
+  const [endLocation, setEndLocation] = useState(undefined);
   const [extraDistance, setExtraDistance] = useState(25);
   const [elevationOption, setElevationOption] = useState("maximized");
   const [overlayContent, setOverlayContent] = useState(undefined);
@@ -16,8 +17,10 @@ function App() {
   return (
     <InputContext.Provider
       value={{
-        destinationLocation,
-        setDestinationLocation,
+        startLocation,
+        setStartLocation,
+        endLocation,
+        setEndLocation,
         extraDistance,
         setExtraDistance,
         elevationOption,

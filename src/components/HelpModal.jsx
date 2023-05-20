@@ -8,7 +8,7 @@ function HelpModal() {
 
   return (
     <>
-      <Button fullWidth onClick={() => setOpen(true)}>
+      <Button onClick={() => setOpen(true)}>
         <HelpOutlineIcon />
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -32,18 +32,20 @@ function HelpModal() {
             </Typography>
             <Typography variant="h6">Usage</Typography>
             <Typography variant="body1" paragraph>
-              Using the text field, search for your destination using an address or location name. Avoid using long form
-              mailing addresses. The building number, street name, and town should be good enough. Example: &quot;6 Main
-              Street Amherst&quot;. After pressing &quot;SEARCH&quot;, a marker will show on the map to display your
-              current location and resolved destination.
+              Using the text fields, search for your start and end locations using an address or location name. Avoid
+              using long form mailing addresses. The building number, street name, and town should be good enough.
+              Example: &quot;6 Main Street Amherst&quot;. After pressing &quot;SEARCH&quot;, a marker will show on the
+              map to display the selected point.
             </Typography>
             <Typography variant="body1" paragraph>
-              After selecting a destination, you can configure your route preferences. First, select whether your route
-              should maximize or minimize total elevation gain. Then configure how much additional distance the
-              elevation-sensitive route may have. This is represented as a percentage of the shortest possible route.
+              After selecting start and destination locations, you can configure your route preferences. First, select
+              whether your route should maximize or minimize total elevation gain. Then configure how much additional
+              distance the elevation-sensitive route may have. This is represented as a percentage of the shortest
+              possible route.
             </Typography>
             <Typography variant="body1" paragraph>
-              Finally, press &quot;CALCULATE ROUTE&quot; to have your route calculated and displayed.
+              Finally, press &quot;CALCULATE ROUTE&quot; to have your route calculated and displayed. You may use the
+              &quot;RESET&quot; button to reset your inputs.
             </Typography>
             <Box display="flex" justifyContent="center">
               <IconButton
