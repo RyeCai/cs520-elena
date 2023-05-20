@@ -9,7 +9,6 @@ export const InputContext = createContext();
 
 function App() {
   const [destinationLocation, setDestinationLocation] = useState(undefined);
-  const [userLocation, setUserLocation] = useState(undefined);
   const [extraDistance, setExtraDistance] = useState(25);
   const [elevationOption, setElevationOption] = useState("maximized");
   const [overlayContent, setOverlayContent] = useState("Please enable location permissions to use this application.");
@@ -19,8 +18,6 @@ function App() {
       value={{
         destinationLocation,
         setDestinationLocation,
-        userLocation,
-        setUserLocation,
         extraDistance,
         setExtraDistance,
         elevationOption,
