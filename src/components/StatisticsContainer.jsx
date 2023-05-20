@@ -5,6 +5,8 @@ import { InputContext } from "../App.jsx";
 export default function StatisticsContainer() {
   const { overlayContent } = useContext(InputContext);
 
+  if (overlayContent === undefined) return <></>;
+
   return (
     <Paper
       style={{

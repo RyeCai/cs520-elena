@@ -11,7 +11,7 @@ function App() {
   const [destinationLocation, setDestinationLocation] = useState(undefined);
   const [extraDistance, setExtraDistance] = useState(25);
   const [elevationOption, setElevationOption] = useState("maximized");
-  const [overlayContent, setOverlayContent] = useState("Please enable location permissions to use this application.");
+  const [overlayContent, setOverlayContent] = useState(undefined);
 
   return (
     <InputContext.Provider
