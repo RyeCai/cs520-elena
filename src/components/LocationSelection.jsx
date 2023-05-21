@@ -129,6 +129,12 @@ export default function LocationSelection({ selection, onSelect, name, color }) 
     onSelect(undefined);
   }
 
+  function handleEnter(event) {
+    if (event.key == 'Enter') {
+      handleSearch()
+    }
+  }
+
   return (
     <>
       <TextField
@@ -138,6 +144,7 @@ export default function LocationSelection({ selection, onSelect, name, color }) 
         value={selection ? selection.name : text}
         disabled={disableInput}
         onChange={e => setText(e.target.value)}
+        onKeyDown={handleEnter}
       />
       <Grid container spacing={2}>
         <Grid item xs={8}>
