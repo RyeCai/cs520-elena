@@ -8,7 +8,7 @@ import HelpModal from "./HelpModal.jsx";
 import LocationSelection from "./LocationSelection.jsx";
 
 function InputContainer() {
-  const { startLocation, endLocation } = useContext(InputContext);
+  const { startLocation, setStartLocation, endLocation, setEndLocation } = useContext(InputContext);
 
   return (
     <Paper
@@ -25,10 +25,10 @@ function InputContainer() {
     >
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <LocationSelection name="Start" color="origin" />
+          <LocationSelection name="Start" color="origin" selection={startLocation} onSelect={setStartLocation} />
         </Grid>
         <Grid item xs={6}>
-          <LocationSelection name="End" color="destination" />
+          <LocationSelection name="End" color="destination" selection={endLocation} onSelect={setEndLocation} />
         </Grid>
         <Grid item xs={6}>
           <ElevationSelection />

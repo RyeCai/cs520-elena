@@ -85,9 +85,8 @@ function SearchResultsModal({ searchResults, onSubmit }) {
   );
 }
 
-export default function LocationSelection({ name, color }) {
+export default function LocationSelection({ selection, onSelect, name, color }) {
   const [text, setText] = useState("");
-  const [selection, setSelection] = useState(undefined);
 
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -112,7 +111,7 @@ export default function LocationSelection({ name, color }) {
     } else {
       setIsSearching(false);
 
-      if (results.length === 1) setSelection(results[0]);
+      if (results.length === 1) onSelect(results[0]);
     }
   }
 
@@ -121,13 +120,13 @@ export default function LocationSelection({ name, color }) {
 
     if (index >= 0) {
       const selection = searchResults[index];
-      setSelection(selection);
+      onSelect(selection);
     }
   }
 
   function handleReset() {
     setText("");
-    setSelection(undefined);
+    onSelect(undefined);
   }
 
   return (
