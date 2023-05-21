@@ -27,7 +27,7 @@ function fetchGeoCoords(query) {
 
           const displayParts = nameParts.splice(0, Math.min(nameParts.length, 4));
 
-          return { name: displayParts.join(", "), location: [parseFloat(entry.lat), parseFloat(entry.lon)] };
+          return { name: displayParts.join(", "), coords: [parseFloat(entry.lat), parseFloat(entry.lon)] };
         });
       } else {
         throw new Error("Bad results.");
