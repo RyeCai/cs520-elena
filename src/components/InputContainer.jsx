@@ -1,41 +1,56 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
-import React, { useState } from "react";
+import { Button, Grid, Paper } from "@mui/material";
+import React, { useContext } from "react";
+
+import { InputContext } from "../App.jsx";
+import ElevationSelection from "./ElevationSelection.jsx";
+import ExtraDistanceSelection from "./ExtraDistanceSeletion.jsx";
+import HelpModal from "./HelpModal.jsx";
+import LocationSelection from "./LocationSelection.jsx";
 
 function InputContainer() {
-  const [destination, setDestination] = useState("");
-  const [elevationOption, setElevationOption] = useState("maximize");
-
-  const handleCalculateRoute = () => {
-    // TODO
-  };
+  const { startLocation, setStartLocation, endLocation, setEndLocation } = useContext(InputContext);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", padding: "40px" }}>
-      <TextField
-        label="Destination"
-        value={destination}
-        onChange={e => setDestination(e.target.value)}
-        sx={{ marginBottom: "1rem" }}
-      />
-
-      <Select
-        value={elevationOption}
-        onChange={e => setElevationOption(e.target.value)}
-        label="Elevation Option"
-        sx={{ marginBottom: "1rem" }}
-      >
-        <MenuItem value="maximize">Maximize Elevation</MenuItem>
-        <MenuItem value="minimize">Minimize Elevation</MenuItem>
-      </Select>
-
-      <Button variant="contained" onClick={handleCalculateRoute}>
-        Calculate Route
-      </Button>
-    </Box>
+    <Paper
+      style={{
+        minWidth: "80%",
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        zIndex: 1,
+        position: "absolute",
+        left: "50%",
+        transform: "translateX(-50%)",
+        padding: "10px",
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <LocationSelection name="Start" color="origin" selection={startLocation} onSelect={setStartLocation} />
+        </Grid>
+        <Grid item xs={6}>
+          <LocationSelection name="End" color="destination" selection={endLocation} onSelect={setEndLocation} />
+        </Grid>
+        <Grid item xs={6}>
+          <ElevationSelection />
+        </Grid>
+        <Grid item xs={6}>
+          <ExtraDistanceSelection />
+        </Grid>
+        <Grid item xs={8}>
+          <Button fullWidth variant="contained" disabled={startLocation === undefined || endLocation === undefined}>
+            Calculate Route
+          </Button>
+        </Grid>
+        <Grid item xs={3}>
+          <Button fullWidth variant="outlined" color="error">
+            Reset
+          </Button>
+        </Grid>
+        <Grid item xs={1}>
+          <HelpModal />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }
 
