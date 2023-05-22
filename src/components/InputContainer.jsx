@@ -15,6 +15,7 @@ function InputContainer() {
     setElevationOption, 
     setExtraDistance, 
     setOverlayContent,
+    isCalculating,
     setIsCalculating
     } = useContext(InputContext);
   const [startText, setStartText] = useState("");
@@ -27,7 +28,7 @@ function InputContainer() {
     setElevationOption("maximized");
     setOverlayContent(undefined);
     setStartText("");
-    setStartText("");
+    setEndText("");
   }
 
   function handleCalculating() {
@@ -66,7 +67,7 @@ function InputContainer() {
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button fullWidth variant="outlined" color="error" onClick={handleReset}>
+          <Button fullWidth variant="outlined" disabled={isCalculating} color="error" onClick={handleReset}>
             Reset
           </Button>
         </Grid>
