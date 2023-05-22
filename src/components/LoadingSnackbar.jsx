@@ -7,7 +7,7 @@ function LoadingSnackbar() {
     
     return (
 
-    <Snackbar open={isCalculating} autoHideDuration={1000} style={{zIndex: 1}}>
+    <Snackbar open={isCalculating} autoHideDuration={1000} anchorOrigin={{vertical:'bottom', horizontal:'right'}}>
         <Paper style={{padding: 4}}>
             <Stack direction="row" alignItems="center">
                 <CircularProgress style={{marginRight: 8}}/>
