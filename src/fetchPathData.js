@@ -33,6 +33,16 @@ const makeEleKey = (lat, lon) => `[${lat.toFixed(6)},${lon.toFixed(6)}]`;
 async function fetchElevationData({ elements }) {
   const elevationMap = {};
 
+  if (DEBUG) {
+    for (const e of elements) {
+      if (e.type !== "node") continue;
+
+      elevationMap[makeEleKey(e.lat, e.lon)] = Math.floor(Math.random() * 20 + 30);
+    }
+
+    return elevationMap;
+  }
+
   const elevationQueries = [];
   const WINDOW = 2000;
   let queryIndex = -1;
@@ -77,7 +87,7 @@ export default async function fetchPathData(startCoords, endCoords) {
 
   const osmResult = await fetchOSMData(query);
 
-  const elevationMap = DEBUG ? {} : await fetchElevationData(osmResult);
+  const elevationMap = await fetchElevationData(osmResult);
 
   const nodes = {},
     ways = [];
@@ -108,7 +118,7 @@ export default async function fetchPathData(startCoords, endCoords) {
       nodes[e.id] = {
         lat: e.lat,
         lon: e.lon,
-        ele: DEBUG ? Math.floor(Math.random() * 20 + 30) : elevationMap[eleKey],
+        ele: elevationMap[eleKey],
         neighbors: [],
       };
     } else if (e.type === "way") {
