@@ -27,11 +27,16 @@ function MapController() {
   }, [map, userLocation]);
 
   useEffect(() => {
+    let bounds;
     if (startLocation && endLocation) {
-      map.fitBounds([startLocation.coords, endLocation.coords]);
+      bounds = [startLocation.coords, endLocation.coords];
     } else if (startLocation || endLocation) {
       const location = startLocation ?? endLocation;
-      map.fitBounds([location.coords, location.coords]);
+      bounds = [location.coords, location.coords];
+    }
+
+    if (bounds) {
+      map.fitBounds(bounds, { paddingTopLeft: [0, 250]});
     }
   }, [map, startLocation, endLocation]);
 
