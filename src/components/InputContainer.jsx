@@ -2,13 +2,29 @@ import { Button, Grid, Paper } from "@mui/material";
 import React, { useContext } from "react";
 
 import { InputContext } from "../App.jsx";
+import findPath from "../findPath.js";
 import ElevationSelection from "./ElevationSelection.jsx";
 import ExtraDistanceSelection from "./ExtraDistanceSeletion.jsx";
 import HelpModal from "./HelpModal.jsx";
 import LocationSelection from "./LocationSelection.jsx";
 
 function InputContainer() {
-  const { startLocation, setStartLocation, endLocation, setEndLocation } = useContext(InputContext);
+  const { startLocation, setStartLocation, endLocation, setEndLocation, extraDistance, elevationOption } =
+    useContext(InputContext);
+
+  async function handleCalculateRoute() {
+    try {
+      const path = await findPath({
+        startCoords: startLocation.coords,
+        endCoords: endLocation.coords,
+        elevationGain: elevationOption,
+        extraDistance,
+      });
+    } catch (e) {
+      console.error(e);
+      // TODO
+    }
+  }
 
   return (
     <Paper
@@ -37,7 +53,12 @@ function InputContainer() {
           <ExtraDistanceSelection />
         </Grid>
         <Grid item xs={8}>
-          <Button fullWidth variant="contained" disabled={startLocation === undefined || endLocation === undefined}>
+          <Button
+            fullWidth
+            variant="contained"
+            disabled={startLocation === undefined || endLocation === undefined}
+            onClick={handleCalculateRoute}
+          >
             Calculate Route
           </Button>
         </Grid>
