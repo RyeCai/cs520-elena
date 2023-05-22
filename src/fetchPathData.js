@@ -68,16 +68,19 @@ export default async function fetchPathData(startCoords, endCoords) {
   const query = `
     [out:json][bbox:${minLat},${minLng},${maxLat},${maxLng}];
     (
-      node;
-      way(bn);
+      way["highway"];
+      way["route"];
+      way["path"];
     );
+    (._;>;);
     out;`;
 
   const osmResult = await fetchOSMData(query);
+
   const elevationMap = DEBUG ? {} : await fetchElevationData(osmResult);
 
   const nodes = {},
-    ways = {};
+    ways = [];
 
   let startNodeId, endNodeId;
   let bestStartDist = Infinity,
@@ -106,11 +109,25 @@ export default async function fetchPathData(startCoords, endCoords) {
         lat: e.lat,
         lon: e.lon,
         ele: DEBUG ? Math.floor(Math.random() * 20 + 30) : elevationMap[eleKey],
+        neighbors: [],
       };
     } else if (e.type === "way") {
-      ways[e.id] = e.nodes;
+      ways.push(e.nodes);
+    }
+
+    for (const way of ways) {
+      for (let i = 0; i < way.length - 1; i++) {
+        const nodeId = way[i],
+          nextId = way[i + 1];
+
+        const node = nodes[nodeId],
+          next = nodes[nextId];
+
+        node.neighbors.push(nextId);
+        next.neighbors.push(nodeId);
+      }
     }
   }
 
-  return { startNodeId, endNodeId, nodes, ways };
+  return { startNodeId, endNodeId, nodes };
 }
