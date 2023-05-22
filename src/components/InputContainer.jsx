@@ -17,6 +17,7 @@ function InputContainer() {
     endLocation,
     setEndLocation,
     extraDistancePercent,
+    setElevationOption,
     elevationOption,
     setPath,
     setOverlayContent,
@@ -61,6 +62,7 @@ function InputContainer() {
     setOverlayContent(undefined);
     setStartText("");
     setEndText("");
+    setPath(undefined);
   }
 
   function handleExpand() {
