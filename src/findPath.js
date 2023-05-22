@@ -1,79 +1,48 @@
-import { getDistance } from "geolib";
-import fetchPathData from "./fetchPathData.js";
+import Bottleneck from "bottleneck";
+import fetchPath from "./fetchPath.js";
 
-export default async function findPath({ startCoords, endCoords, elevationGain, extraDistance }) {
-  if (extraDistance < 0 || extraDistance > 50) throw new Error(`Invalid extra allowed distance: ${extraDistance}`);
+const limiter = new Bottleneck({
+  minTime: 500,
+});
 
-  const { startNodeId, endNodeId, nodes } = await fetchPathData(startCoords, endCoords);
+export default async function findPath({ startCoords, endCoords, elevationOption, extraDistancePercent }) {
+  if (extraDistancePercent < 0 || extraDistancePercent > 50)
+    throw new Error(`Invalid extra allowed distance: ${extraDistancePercent}`);
 
-  const shortestResult = aStar(nodes, startNodeId, endNodeId, () => 0, Infinity);
-  if (!shortestResult) throw new Error("Unable to find a path between those two points.");
+  const shortestResult = await fetchPath(startCoords, endCoords, {
+    considerElevation: false,
+    downhillCost: 0,
+    uphillCost: 0,
+  });
 
-  const shortestPath = shortestResult.path,
-    shortestDistance = shortestResult.distance;
+  const shortestDistance = shortestResult.distance;
 
-  const result = aStar(nodes, startNodeId, endNodeId, () => 0, shortestDistance * (1 + extraDistance / 100));
-  if (!result) throw new Error("Unable to find a path between those two points.");
-  const { path, distance } = result;
+  const maxDistance = shortestDistance * (1 + extraDistancePercent);
 
-  return { shortestPath, shortestDistance, path, distance };
-}
+  let cost = 1000;
 
-function aStar(nodes, startId, endId, h, maxDistance) {
-  function d(aId, bId) {
-    return getDistance(nodes[aId], nodes[bId]);
+  const shouldMaximizeElevation = elevationOption === "maximize";
+
+  let path, distance, elevationGain;
+  do {
+    cost /= 2;
+
+    const result = await limiter.schedule(() =>
+      fetchPath(startCoords, endCoords, {
+        considerElevation: true,
+        downhillCost: shouldMaximizeElevation ? cost : 0,
+        uphillCost: shouldMaximizeElevation ? 0 : cost,
+      })
+    );
+
+    path = result.path;
+    distance = result.distance;
+    elevationGain = result.elevationGain;
+  } while (distance > maxDistance && cost > 1);
+
+  if (distance > maxDistance) {
+    return undefined;
   }
 
-  const openSet = new Set([startId]);
-  const cameFrom = {};
-
-  function constructPath(nodeId) {
-    const path = [nodeId];
-    while (nodeId in cameFrom) {
-      nodeId = cameFrom[nodeId];
-      path.unshift(nodeId);
-    }
-
-    return path;
-  }
-
-  const gScore = {};
-  gScore[startId] = 0;
-
-  const fScore = {};
-  fScore[startId] = h(startId);
-
-  for (const nodeId of Object.keys(nodes)) {
-    gScore[nodeId] = Infinity;
-    fScore[nodeId] = Infinity;
-  }
-
-  while (openSet.size > 0) {
-    let currentId;
-    for (const nodeId of openSet) {
-      if (currentId === undefined || fScore[nodeId] < fScore[currentId]) {
-        currentId = nodeId;
-      }
-    }
-
-    if (currentId === endId) {
-      return { path: constructPath(endId), distance: gScore[currentId] };
-    }
-
-    const currentNode = nodes[currentId];
-    openSet.delete(currentId);
-
-    for (const neighborId of currentNode.neighbors) {
-      const score = gScore[currentId] + d(currentId, neighborId);
-
-      if (score < gScore[neighborId] && score < maxDistance) {
-        cameFrom[neighborId] = currentId;
-        gScore[neighborId] = score;
-        fScore[neighborId] = score + h(neighborId);
-        openSet.add(neighborId);
-      }
-    }
-  }
-
-  return undefined;
+  return { shortestDistance, path, distance, elevationGain };
 }

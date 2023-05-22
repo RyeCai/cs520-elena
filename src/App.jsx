@@ -25,9 +25,10 @@ export const InputContext = createContext();
 function App() {
   const [startLocation, setStartLocation] = useState(undefined);
   const [endLocation, setEndLocation] = useState(undefined);
-  const [extraDistance, setExtraDistance] = useState(25);
+  const [extraDistancePercent, setExtraDistancePercent] = useState(25);
   const [elevationOption, setElevationOption] = useState("maximized");
   const [overlayContent, setOverlayContent] = useState(undefined);
+  const [path, setPath] = useState(undefined);
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,12 +38,14 @@ function App() {
           setStartLocation,
           endLocation,
           setEndLocation,
-          extraDistance,
-          setExtraDistance,
+          extraDistancePercent,
+          setExtraDistancePercent,
           elevationOption,
           setElevationOption,
           overlayContent,
           setOverlayContent,
+          path,
+          setPath,
         }}
       >
         <InputContainer />

@@ -1,5 +1,5 @@
-import { Button, Grid, Paper } from "@mui/material";
-import React, { useContext } from "react";
+import { Button, Grid, Modal, Paper, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
 
 import { InputContext } from "../App.jsx";
 import findPath from "../findPath.js";
@@ -9,17 +9,33 @@ import HelpModal from "./HelpModal.jsx";
 import LocationSelection from "./LocationSelection.jsx";
 
 function InputContainer() {
-  const { startLocation, setStartLocation, endLocation, setEndLocation, extraDistance, elevationOption } =
-    useContext(InputContext);
+  const {
+    startLocation,
+    setStartLocation,
+    endLocation,
+    setEndLocation,
+    extraDistancePercent,
+    elevationOption,
+    setPath,
+  } = useContext(InputContext);
+  const [error, setError] = useState(undefined);
 
   async function handleCalculateRoute() {
     try {
-      const path = await findPath({
+      const result = await findPath({
         startCoords: startLocation.coords,
         endCoords: endLocation.coords,
-        elevationGain: elevationOption,
-        extraDistance,
+        elevationOption,
+        extraDistancePercent,
       });
+
+      console.log(result);
+      if (result) {
+        setError(undefined);
+        setPath(result.path);
+      } else {
+        setError("Unable to calculate path. Please allow additional extra distance.");
+      }
     } catch (e) {
       console.error(e);
       // TODO
@@ -71,6 +87,13 @@ function InputContainer() {
           <HelpModal />
         </Grid>
       </Grid>
+      {error && (
+        <Modal open={error !== undefined} onClose={() => setError(undefined)}>
+          <Paper display="flex" style={{ padding: "10px", marginBottom: "5px" }}>
+            <Typography variant="h5">{error}</Typography>
+          </Paper>
+        </Modal>
+      )}
     </Paper>
   );
 }
