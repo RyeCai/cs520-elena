@@ -29,7 +29,6 @@ function App() {
   const [extraDistance, setExtraDistance] = useState(25);
   const [elevationOption, setElevationOption] = useState("maximized");
   const [overlayContent, setOverlayContent] = useState(undefined);
-  const [isCalculating, setIsCalculating] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -45,8 +44,6 @@ function App() {
           setElevationOption,
           overlayContent,
           setOverlayContent,
-          isCalculating,
-          setIsCalculating
         }}
       >
         <InputContainer />

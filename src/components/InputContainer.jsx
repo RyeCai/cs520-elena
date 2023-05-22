@@ -16,11 +16,10 @@ function InputContainer() {
     setEndLocation, 
     setElevationOption, 
     setExtraDistance, 
-    setOverlayContent,
-    isCalculating,
-    setIsCalculating
+    setOverlayContent
     } = useContext(InputContext);
   const [startText, setStartText] = useState("");
+  const [isCalculating, setIsCalculating] = useState(false)
   const [endText, setEndText] = useState("");
   const [expanded, setExpanded] = useState(true);
 
