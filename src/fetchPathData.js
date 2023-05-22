@@ -70,11 +70,7 @@ async function fetchElevationData({ elements }) {
 }
 
 export default async function fetchPathData(startCoords, endCoords) {
-  const arrToPoint = a => makePoint(a[0], a[1]);
-  const startPoint = arrToPoint(startCoords);
-  const endPoint = arrToPoint(endCoords);
-
-  const { minLat, minLng, maxLat, maxLng } = getBounds([startPoint, endPoint]);
+  const { minLat, minLng, maxLat, maxLng } = getBounds([startCoords, endCoords]);
   const query = `
     [out:json][bbox:${minLat},${minLng},${maxLat},${maxLng}];
     (
@@ -101,15 +97,13 @@ export default async function fetchPathData(startCoords, endCoords) {
       const { lat, lon } = e;
       const eleKey = makeEleKey(lat, lon);
 
-      const currPoint = makePoint(lat, lon);
-
-      const distToStart = getDistance(startPoint, currPoint);
+      const distToStart = getDistance(startCoords, e);
       if (distToStart < bestStartDist) {
         bestStartDist = distToStart;
         startNodeId = e.id;
       }
 
-      const distToEnd = getDistance(endPoint, currPoint);
+      const distToEnd = getDistance(endCoords, e);
       if (distToEnd < bestEndDist) {
         bestEndDist = distToEnd;
         endNodeId = e.id;

@@ -2,7 +2,7 @@ import { getDistance } from "geolib";
 import fetchPathData from "./fetchPathData.js";
 
 export default async function findPath({ startCoords, endCoords, elevationGain, extraDistance }) {
-  if (extraDistance < 0 || extraDistance > 50) throw new Error(`Invalid extra allowed distance: ${extraDistance}`);
+  if (extraDistance < 0.05 || extraDistance > 0.5) throw new Error(`Invalid extra allowed distance: ${extraDistance}`);
 
   const { startNodeId, endNodeId, nodes } = await fetchPathData(startCoords, endCoords);
 
@@ -12,7 +12,7 @@ export default async function findPath({ startCoords, endCoords, elevationGain, 
   const shortestPath = shortestResult.path,
     shortestDistance = shortestResult.distance;
 
-  const result = aStar(nodes, startNodeId, endNodeId, () => 0, shortestDistance * (1 + extraDistance / 100));
+  const result = aStar(nodes, startNodeId, endNodeId, () => 0, shortestDistance * (1 + extraDistance));
   if (!result) throw new Error("Unable to find a bath between those two points.");
   const { path, distance } = result;
 

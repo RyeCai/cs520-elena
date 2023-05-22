@@ -29,14 +29,22 @@ function MapController() {
   useEffect(() => {
     let bounds;
     if (startLocation && endLocation) {
-      bounds = [startLocation.coords, endLocation.coords];
+      const startCoords = startLocation.coords,
+        endCoords = endLocation.coords;
+
+      bounds = [
+        [startCoords.lat, startCoords.lon],
+        [endCoords.lat, endCoords.lon],
+      ];
     } else if (startLocation || endLocation) {
-      const location = startLocation ?? endLocation;
-      bounds = [location.coords, location.coords];
+      const coords = startLocation ? startLocation.coords : endLocation.coords;
+      const point = [coords.lat, coords.lon];
+
+      bounds = [point, point];
     }
 
     if (bounds) {
-      map.fitBounds(bounds, { paddingTopLeft: [0, 250]});
+      map.fitBounds(bounds, { paddingTopLeft: [0, 250] });
     }
   }, [map, startLocation, endLocation]);
 
