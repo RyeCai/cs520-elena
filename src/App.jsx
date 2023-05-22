@@ -6,6 +6,7 @@ import "./App.css";
 import InputContainer from "./components/InputContainer.jsx";
 import Map from "./components/Map.jsx";
 import StatisticsContainer from "./components/StatisticsContainer.jsx";
+import LoadingSnackbar from "./components/LoadingSnackbar";
 
 const theme = createTheme({
   palette: {
@@ -51,6 +52,7 @@ function App() {
         <InputContainer />
         <Map />
         <StatisticsContainer />
+        <LoadingSnackbar/>
       </InputContext.Provider>
     </ThemeProvider>
   );
