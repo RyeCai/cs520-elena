@@ -6,6 +6,7 @@ import "./App.css";
 import InputContainer from "./components/InputContainer.jsx";
 import Map from "./components/Map.jsx";
 import StatisticsContainer from "./components/StatisticsContainer.jsx";
+import LoadingSnackbar from "./components/LoadingSnackbar";
 
 const theme = createTheme({
   palette: {
@@ -28,6 +29,7 @@ function App() {
   const [extraDistance, setExtraDistance] = useState(25);
   const [elevationOption, setElevationOption] = useState("maximized");
   const [overlayContent, setOverlayContent] = useState(undefined);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,11 +45,14 @@ function App() {
           setElevationOption,
           overlayContent,
           setOverlayContent,
+          isCalculating,
+          setIsCalculating
         }}
       >
         <InputContainer />
         <Map />
         <StatisticsContainer />
+        <LoadingSnackbar/>
       </InputContext.Provider>
     </ThemeProvider>
   );

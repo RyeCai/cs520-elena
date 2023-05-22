@@ -8,8 +8,15 @@ import HelpModal from "./HelpModal.jsx";
 import LocationSelection from "./LocationSelection.jsx";
 
 function InputContainer() {
-  const { startLocation, setStartLocation, endLocation, 
-    setEndLocation, setElevationOption, setExtraDistance, setOverlayContent } = useContext(InputContext);
+  const { startLocation, 
+    setStartLocation, 
+    endLocation, 
+    setEndLocation, 
+    setElevationOption, 
+    setExtraDistance, 
+    setOverlayContent,
+    setIsCalculating
+    } = useContext(InputContext);
   const [startText, setStartText] = useState("");
   const [endText, setEndText] = useState("");
 
@@ -21,6 +28,10 @@ function InputContainer() {
     setOverlayContent(undefined);
     setStartText("");
     setStartText("");
+  }
+
+  function handleCalculating() {
+    setIsCalculating(true);
   }
 
   return (
@@ -50,7 +61,7 @@ function InputContainer() {
           <ExtraDistanceSelection />
         </Grid>
         <Grid item xs={8}>
-          <Button fullWidth variant="contained" disabled={startLocation === undefined || endLocation === undefined}>
+          <Button fullWidth variant="contained" disabled={startLocation === undefined || endLocation === undefined} onClick={handleCalculating}>
             Calculate Route
           </Button>
         </Grid>
