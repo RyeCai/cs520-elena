@@ -57,10 +57,16 @@ function InputContainer() {
     >
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <LocationSelection name="Start" color="origin" selection={startLocation} onSelect={setStartLocation} />
+          <LocationSelection name="Start" color="origin" selection={startLocation} onSelect={(location) => {
+            setPath(undefined);
+            setStartLocation(location)
+          }} />
         </Grid>
         <Grid item xs={6}>
-          <LocationSelection name="End" color="destination" selection={endLocation} onSelect={setEndLocation} />
+          <LocationSelection name="End" color="destination" selection={endLocation} onSelect={(location) => {
+            setPath(undefined);
+            setEndLocation(location);
+          }} />
         </Grid>
         <Grid item xs={6}>
           <ElevationSelection />
