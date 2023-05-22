@@ -1,5 +1,5 @@
 import { Button, Grid, Paper } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import { InputContext } from "../App.jsx";
 import ElevationSelection from "./ElevationSelection.jsx";
@@ -8,7 +8,20 @@ import HelpModal from "./HelpModal.jsx";
 import LocationSelection from "./LocationSelection.jsx";
 
 function InputContainer() {
-  const { startLocation, setStartLocation, endLocation, setEndLocation } = useContext(InputContext);
+  const { startLocation, setStartLocation, endLocation, 
+    setEndLocation, setElevationOption, setExtraDistance, setOverlayContent } = useContext(InputContext);
+  const [startText, setStartText] = useState("");
+  const [endText, setEndText] = useState("");
+
+  function handleReset() {
+    setStartLocation(undefined);
+    setEndLocation(undefined);
+    setExtraDistance(25);
+    setElevationOption("maximized");
+    setOverlayContent(undefined);
+    setStartText("");
+    setStartText("");
+  }
 
   return (
     <Paper
@@ -25,10 +38,10 @@ function InputContainer() {
     >
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <LocationSelection name="Start" color="origin" selection={startLocation} onSelect={setStartLocation} />
+          <LocationSelection name="Start" color="origin" selection={startLocation} onSelect={setStartLocation} text={startText} setText={setStartText}/>
         </Grid>
         <Grid item xs={6}>
-          <LocationSelection name="End" color="destination" selection={endLocation} onSelect={setEndLocation} />
+          <LocationSelection name="End" color="destination" selection={endLocation} onSelect={setEndLocation} text={endText} setText={setEndText}/>
         </Grid>
         <Grid item xs={6}>
           <ElevationSelection />
@@ -42,7 +55,7 @@ function InputContainer() {
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button fullWidth variant="outlined" color="error">
+          <Button fullWidth variant="outlined" color="error" onClick={handleReset}>
             Reset
           </Button>
         </Grid>

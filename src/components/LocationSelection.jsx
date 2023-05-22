@@ -85,14 +85,16 @@ function SearchResultsModal({ searchResults, onSubmit }) {
   );
 }
 
-export default function LocationSelection({ selection, onSelect, name, color }) {
-  const [text, setText] = useState("");
+export default function LocationSelection({ selection, onSelect, name, color, text, setText}) {
+  // const [text, setText] = useState("");
 
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
   const disableInput = Boolean(selection) || Boolean(isSearching);
   const disableSearch = text.length <= 0 || disableInput;
+
+  // check if the all-encompassing reset button is pressed
 
   async function handleSearch() {
     setIsSearching(true);
