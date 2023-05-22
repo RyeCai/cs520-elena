@@ -5,16 +5,16 @@ import { InputContext } from "../App.jsx";
 const marks = [5, 10, 25, 50].map(v => ({ value: v, label: `${v}%` }));
 
 function ExtraDistanceSelection() {
-  const { extraDistance, setExtraDistance } = useContext(InputContext);
+  const { extraDistancePercent, setExtraDistancePercent } = useContext(InputContext);
 
   return (
     <>
       <Typography>Extra Allowed Distance:</Typography>
       <Box sx={{ paddingX: "10px" }}>
         <Slider
-          value={extraDistance}
+          value={extraDistancePercent}
           step={1}
-          onChange={e => setExtraDistance(e.target.value)}
+          onChange={e => setExtraDistancePercent(e.target.value / 100)}
           valueLabelDisplay="auto"
           min={5}
           max={50}
