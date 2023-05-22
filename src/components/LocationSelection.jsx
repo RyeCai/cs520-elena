@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { InputContext } from "../App";
 
 import {
   Button,
@@ -87,8 +86,6 @@ function SearchResultsModal({ searchResults, onSubmit }) {
 }
 
 export default function LocationSelection({ selection, onSelect, name, color, text, setText}) {
-  const {isCalculating} = useContext(InputContext);
-
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -154,7 +151,7 @@ export default function LocationSelection({ selection, onSelect, name, color, te
           </Button>
         </Grid>
         <Grid item xs={4}>
-          <Button fullWidth color={color} variant="outlined" disabled={!selection || isCalculating} onClick={handleReset}>
+          <Button fullWidth color={color} variant="outlined" disabled={!selection} onClick={handleReset}>
             Reset
           </Button>
         </Grid>
