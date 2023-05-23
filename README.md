@@ -37,6 +37,7 @@ yarn dev
 This will run the developer server, and open the web application in the browser with live updates to any changes in code.
 
 ## Running Test Suite
+
 After installing all dependencies, navigate into the `cs520-elena` directory.
 
 Run the test suite using:
@@ -45,4 +46,4 @@ Run the test suite using:
 yarn test
 ```
 
-The tests will run and the results will be viewable in the terminal.
+This will run the regression tests using `vitest`.
