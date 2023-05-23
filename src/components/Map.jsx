@@ -90,7 +90,7 @@ export default function Map() {
           location={endLocation}
         />
       )}
-      {<Polyline positions={path ? path.map(([a, b]) => [b, a]) : []} />}
+      {path && <Polyline positions={path.map(([a, b]) => [b, a])} />}
       <MapController />
     </MapContainer>
   );

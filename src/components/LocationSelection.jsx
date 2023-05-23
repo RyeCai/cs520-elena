@@ -20,14 +20,20 @@ function fetchGeoCoords(query) {
 
   return wretch(url.toString())
     .get()
-    .json(json => {
+    .json((json) => {
       if (Array.isArray(json)) {
-        return json.map(entry => {
+        return json.map((entry) => {
           const nameParts = entry.display_name.split(", ");
 
-          const displayParts = nameParts.splice(0, Math.min(nameParts.length, 4));
+          const displayParts = nameParts.splice(
+            0,
+            Math.min(nameParts.length, 4)
+          );
 
-          return { name: displayParts.join(", "), coords: { lat: parseFloat(entry.lat), lon: parseFloat(entry.lon) } };
+          return {
+            name: displayParts.join(", "),
+            coords: { lat: parseFloat(entry.lat), lon: parseFloat(entry.lon) },
+          };
         });
       } else {
         throw new Error("Bad results.");
@@ -69,9 +75,17 @@ function SearchResultsModal({ searchResults, onSubmit }) {
           <form onSubmit={handleLocationSubmit}>
             <FormControl>
               <FormLabel>Location Options</FormLabel>
-              <RadioGroup value={resultIndex} onChange={handleLocationRadioChange}>
+              <RadioGroup
+                value={resultIndex}
+                onChange={handleLocationRadioChange}
+              >
                 {searchResults.map((result, i) => (
-                  <FormControlLabel key={i} value={String(i)} label={result.name} control={<Radio />} />
+                  <FormControlLabel
+                    key={i}
+                    value={String(i)}
+                    label={result.name}
+                    control={<Radio />}
+                  />
                 ))}
               </RadioGroup>
               <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
@@ -85,7 +99,15 @@ function SearchResultsModal({ searchResults, onSubmit }) {
   );
 }
 
-export default function LocationSelection({ selection, onSelect, name, color, text, setText}) {
+export default function LocationSelection({
+  selection,
+  onSelect,
+  name,
+  color,
+  text,
+  setText,
+  testid,
+}) {
   const [isSearching, setIsSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -128,8 +150,8 @@ export default function LocationSelection({ selection, onSelect, name, color, te
   }
 
   function handleEnter(event) {
-    if (event.key == 'Enter') {
-      handleSearch()
+    if (event.key == "Enter") {
+      handleSearch();
     }
   }
 
@@ -141,23 +163,39 @@ export default function LocationSelection({ selection, onSelect, name, color, te
         label={`${name} Location`}
         value={selection ? selection.name : text}
         disabled={disableInput}
-        onChange={e => setText(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
         onKeyDown={handleEnter}
+        inputProps={{ "data-testid": testid }}
       />
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <Button fullWidth color={color} variant="contained" disabled={disableSearch} onClick={() => handleSearch()}>
+          <Button
+            fullWidth
+            color={color}
+            variant="contained"
+            disabled={disableSearch}
+            onClick={() => handleSearch()}
+          >
             Search
           </Button>
         </Grid>
         <Grid item xs={4}>
-          <Button fullWidth color={color} variant="outlined" disabled={!selection} onClick={handleReset}>
+          <Button
+            fullWidth
+            color={color}
+            variant="outlined"
+            disabled={!selection}
+            onClick={handleReset}
+          >
             Reset
           </Button>
         </Grid>
       </Grid>
       {isSearching && searchResults.length > 1 && (
-        <SearchResultsModal searchResults={searchResults} onSubmit={handleSearchSelection} />
+        <SearchResultsModal
+          searchResults={searchResults}
+          onSubmit={handleSearchSelection}
+        />
       )}
     </>
   );

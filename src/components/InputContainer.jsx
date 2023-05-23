@@ -101,6 +101,7 @@ function InputContainer() {
                 }}
                 text={startText}
                 setText={setStartText}
+                testid={"start-input"}
               />
             </Grid>
             <Grid item xs={6}>
@@ -114,6 +115,7 @@ function InputContainer() {
                 }}
                 text={endText}
                 setText={setEndText}
+                data-testid={"end-input"}
               />
             </Grid>
             <Grid item xs={6}>
