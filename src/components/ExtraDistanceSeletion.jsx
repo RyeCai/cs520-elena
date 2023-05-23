@@ -15,7 +15,7 @@ function ExtraDistanceSelection() {
         <Slider
           value={extraDistancePercent}
           step={1}
-          onChange={(e) => setExtraDistancePercent(e.target.value / 100)}
+          onChange={(e) => setExtraDistancePercent(e.target.value)}
           valueLabelDisplay="auto"
           min={0}
           max={50}
