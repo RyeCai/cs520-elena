@@ -16,16 +16,18 @@ function InputContainer() {
     setStartLocation,
     endLocation,
     setEndLocation,
+    setExtraDistancePercent,
     extraDistancePercent,
     setElevationOption,
     elevationOption,
     setPath,
     setOverlayContent,
+    isCalculating,
+    setIsCalculating,
   } = useContext(InputContext);
   const [error, setError] = useState(undefined);
   const [startText, setStartText] = useState("");
   const [endText, setEndText] = useState("");
-  const [isCalculating, setIsCalculating] = useState(false);
   const [expanded, setExpanded] = useState(true);
 
   async function handleCalculateRoute() {
@@ -52,12 +54,13 @@ function InputContainer() {
       console.error(e);
       // TODO
     }
+    setIsCalculating(false);
   }
 
   function handleReset() {
     setStartLocation(undefined);
     setEndLocation(undefined);
-    setExtraDistance(25);
+    setExtraDistancePercent(25);
     setElevationOption("maximized");
     setOverlayContent(undefined);
     setStartText("");
@@ -92,7 +95,10 @@ function InputContainer() {
                 name="Start"
                 color="origin"
                 selection={startLocation}
-                onSelect={setStartLocation}
+                onSelect={(location) => {
+                  setPath(undefined);
+                  setStartLocation(location);
+                }}
                 text={startText}
                 setText={setStartText}
               />
@@ -102,7 +108,10 @@ function InputContainer() {
                 name="End"
                 color="destination"
                 selection={endLocation}
-                onSelect={setEndLocation}
+                onSelect={(location) => {
+                  setPath(undefined);
+                  setEndLocation(location);
+                }}
                 text={endText}
                 setText={setEndText}
               />
@@ -120,7 +129,7 @@ function InputContainer() {
                 disabled={
                   startLocation === undefined || endLocation === undefined
                 }
-                onClick={handleCalculating}
+                onClick={handleCalculateRoute}
               >
                 Calculate Route
               </Button>

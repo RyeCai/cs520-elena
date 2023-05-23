@@ -2,10 +2,11 @@ import { Box, Slider, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { InputContext } from "../App.jsx";
 
-const marks = [5, 10, 25, 50].map(v => ({ value: v, label: `${v}%` }));
+const marks = [5, 10, 25, 50].map((v) => ({ value: v, label: `${v}%` }));
 
 function ExtraDistanceSelection() {
-  const { extraDistancePercent, setExtraDistancePercent } = useContext(InputContext);
+  const { extraDistancePercent, setExtraDistancePercent } =
+    useContext(InputContext);
 
   return (
     <>
@@ -14,9 +15,9 @@ function ExtraDistanceSelection() {
         <Slider
           value={extraDistancePercent}
           step={1}
-          onChange={e => setExtraDistancePercent(e.target.value / 100)}
+          onChange={(e) => setExtraDistancePercent(e.target.value / 100)}
           valueLabelDisplay="auto"
-          min={5}
+          min={0}
           max={50}
           marks={marks}
         />

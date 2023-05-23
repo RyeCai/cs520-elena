@@ -30,6 +30,7 @@ function App() {
   const [elevationOption, setElevationOption] = useState("maximized");
   const [overlayContent, setOverlayContent] = useState(undefined);
   const [path, setPath] = useState(undefined);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -47,12 +48,14 @@ function App() {
           setOverlayContent,
           path,
           setPath,
+          isCalculating,
+          setIsCalculating,
         }}
       >
         <InputContainer />
         <Map />
         <StatisticsContainer />
-        <LoadingSnackbar/>
+        <LoadingSnackbar />
       </InputContext.Provider>
     </ThemeProvider>
   );
