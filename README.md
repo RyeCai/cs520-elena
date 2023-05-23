@@ -35,3 +35,13 @@ yarn dev
 ```
 
 This will run the developer server, and open the web application in the browser with live updates to any changes in code.
+
+## Running Tests
+
+Run:
+
+```sh
+yarn test
+```
+
+This will run the regression tests using `vitest`.
