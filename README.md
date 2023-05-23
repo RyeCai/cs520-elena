@@ -36,9 +36,11 @@ yarn dev
 
 This will run the developer server, and open the web application in the browser with live updates to any changes in code.
 
-## Running Tests
+## Running Test Suite
 
-Run:
+After installing all dependencies, navigate into the `cs520-elena` directory.
+
+Run the test suite using:
 
 ```sh
 yarn test
